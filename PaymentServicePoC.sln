@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36121.58
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WalletService", "WalletService\WalletService.csproj", "{43F90EA2-3B63-4C37-98DB-8D4E7F6FA3B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TokenService", "TokenService\TokenService.csproj", "{66D72D60-7A79-4E17-B29F-50DF5B0ABF65}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransactionLogService", "TransactionLogService\TransactionLogService.csproj", "{8F83252D-C68E-4531-A9B5-9BC23E3F195A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{31440187-DF35-417C-B2ED-0F99400FA187}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentService", "PaymentService\PaymentService.csproj", "{FFBEDCA4-70DC-4160-8618-33FD119D331F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{43F90EA2-3B63-4C37-98DB-8D4E7F6FA3B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43F90EA2-3B63-4C37-98DB-8D4E7F6FA3B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43F90EA2-3B63-4C37-98DB-8D4E7F6FA3B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43F90EA2-3B63-4C37-98DB-8D4E7F6FA3B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66D72D60-7A79-4E17-B29F-50DF5B0ABF65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66D72D60-7A79-4E17-B29F-50DF5B0ABF65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66D72D60-7A79-4E17-B29F-50DF5B0ABF65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66D72D60-7A79-4E17-B29F-50DF5B0ABF65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F83252D-C68E-4531-A9B5-9BC23E3F195A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F83252D-C68E-4531-A9B5-9BC23E3F195A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F83252D-C68E-4531-A9B5-9BC23E3F195A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F83252D-C68E-4531-A9B5-9BC23E3F195A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31440187-DF35-417C-B2ED-0F99400FA187}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31440187-DF35-417C-B2ED-0F99400FA187}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31440187-DF35-417C-B2ED-0F99400FA187}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31440187-DF35-417C-B2ED-0F99400FA187}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFBEDCA4-70DC-4160-8618-33FD119D331F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFBEDCA4-70DC-4160-8618-33FD119D331F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFBEDCA4-70DC-4160-8618-33FD119D331F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFBEDCA4-70DC-4160-8618-33FD119D331F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0E682A51-69CB-4340-A821-84CD1E8A49BD}
+	EndGlobalSection
+EndGlobal
