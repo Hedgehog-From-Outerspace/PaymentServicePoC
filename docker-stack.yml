@@ -1,0 +1,60 @@
+services:
+    paymentservice:
+        image: paymentservice:latest
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - APP_UID=1000
+        ports:
+            - "5000:8080"
+        networks:
+            - backend
+        deploy:
+            replicas: 1
+            restart_policy:
+                condition: on-failure
+
+    tokenservice:
+        image: tokenservice:latest
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - APP_UID=1000
+        ports:
+            - "5001:8080"
+        networks:
+            - backend
+        deploy:
+            replicas: 1
+            restart_policy:
+                condition: on-failure
+
+    transactionlogservice:
+        image: transactionlogservice:latest
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - APP_UID=1000
+        ports:
+            - "5002:8080"
+        networks:
+            - backend
+        deploy:
+            replicas: 1
+            restart_policy:
+                condition: on-failure
+
+    walletservice:
+        image: walletservice:latest
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - APP_UID=1000
+        ports:
+            - "5003:8080"
+        networks:
+            - backend
+        deploy:
+            replicas: 1
+            restart_policy:
+                condition: on-failure
+
+networks:
+    backend:
+        driver: overlay
