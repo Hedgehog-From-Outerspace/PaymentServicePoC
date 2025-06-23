@@ -12,6 +12,19 @@ services:
         networks:
             - backend
 
+    subscriptionservice:
+        build:
+            context: .
+            dockerfile: SubscriptionService/Dockerfile
+        container_name: subscriptionservice
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - APP_UID=1000
+        ports:
+            - "5004:8080"
+        networks:
+            - backend
+
     tokenservice:
         build:
             context: .
