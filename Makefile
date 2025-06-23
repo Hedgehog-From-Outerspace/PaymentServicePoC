@@ -41,6 +41,34 @@ logs:
 	docker service logs $(STACK_NAME)_transactionlogservice
 	docker service logs $(STACK_NAME)_walletservice
 
+# Kubernetes manifest directory
+MANIFEST_DIR=k8s-manifests
+
+# Apply all manifests in the directory
+k8s-apply:
+	kubectl apply -n paymentsystem -f $(MANIFEST_DIR)
+
+# Delete all manifests in the directory
+k8s-delete:
+	kubectl delete -n paymentsystem -f $(MANIFEST_DIR)
+
+# View pods and services in the namespace
+k8s-status:
+	kubectl get pods -n paymentsystem
+	kubectl get svc -n paymentsystem
+
+k8s-rebuild:
+	docker build -t paymentservice:latest -f PaymentService/Dockerfile .
+	docker build -t tokenservice:latest -f TokenService/Dockerfile .
+	docker build -t transactionlogservice:latest -f TransactionLogService/Dockerfile .
+	docker build -t walletservice:latest -f WalletService/Dockerfile .
+
+k8s-restart:
+	kubectl rollout restart deployment paymentservice -n paymentsystem
+	kubectl rollout restart deployment tokenservice -n paymentsystem
+	kubectl rollout restart deployment transactionlogservice -n paymentsystem
+	kubectl rollout restart deployment walletservice -n paymentsystem
+
 # Help overview
 help:
 	@echo "Usage:"
@@ -52,3 +80,6 @@ help:
 	@echo "  make services       - List services in the stack"
 	@echo "  make ps             - List running containers/tasks"
 	@echo "  make logs           - Show logs for all services"
+	@echo "  make k8s-apply      - Apply all manifests in the directory"
+	@echo "  make k8s-delete     - Delete all manifests in the directorys"
+	@echo "  make k8s-status     - View pods and services in the namespace"

@@ -17,6 +17,7 @@ spec:
             containers:
                 - name: paymentservice
                   image: paymentservice:latest
+                  imagePullPolicy: Never
                   ports:
                     - containerPort: 8080
                   env:
