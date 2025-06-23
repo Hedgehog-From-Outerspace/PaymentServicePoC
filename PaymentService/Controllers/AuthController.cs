@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using Shared;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -11,10 +12,14 @@ namespace PaymentService.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IConfiguration _config;
+        private readonly ILogger<AuthController> _logger;
+        private readonly InstanceMetaData _instanceMetaData;
 
-        public AuthController(IConfiguration config)
+        public AuthController(IConfiguration config, ILogger<AuthController> logger, InstanceMetaData instanceMetaData)
         {
             _config = config;
+            _logger = logger;
+            _instanceMetaData = instanceMetaData;
         }
 
         [HttpGet("dev-token")]
@@ -38,6 +43,9 @@ namespace PaymentService.Controllers
                 );
 
             var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
+
+            _logger.LogInformation("Dev-token given to client by instance {InstanceId}", _instanceMetaData.Id);
+
             return Ok( tokenString );
         }
     }
