@@ -40,6 +40,7 @@ logs:
 	docker service logs $(STACK_NAME)_tokenservice
 	docker service logs $(STACK_NAME)_transactionlogservice
 	docker service logs $(STACK_NAME)_walletservice
+	docker service logs $(STACK_NAME)_subscriptionservice
 
 # Kubernetes manifest directory
 MANIFEST_DIR=k8s-manifests

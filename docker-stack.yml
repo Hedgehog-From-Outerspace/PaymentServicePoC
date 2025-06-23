@@ -13,6 +13,20 @@ services:
             restart_policy:
                 condition: on-failure
 
+    subscriptionservice:
+        image: subscriptionservice:latest
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - APP_UID=1000
+        ports:
+            - "5004:8080"
+        networks:
+            - backend
+        deploy:
+            replicas: 1
+            restart_policy:
+                condition: on-failure
+
     tokenservice:
         image: tokenservice:latest
         environment:
