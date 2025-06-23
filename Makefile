@@ -25,6 +25,7 @@ logs:
 	docker service logs $(STACK_NAME)_tokenservice
 	docker service logs $(STACK_NAME)_transactionlogservice
 	docker service logs $(STACK_NAME)_walletservice
+	docker service logs $(STACK_NAME)_subscriptionservice
 
 # Rebuild images and redeploy
 rebuild:
@@ -32,7 +33,16 @@ rebuild:
 	docker build -t tokenservice:latest -f TokenService/Dockerfile .
 	docker build -t transactionlogservice:latest -f TransactionLogService/Dockerfile .
 	docker build -t walletservice:latest -f WalletService/Dockerfile .
+	docker build -t subscriptionservice:latest -f SubscriptionService/Dockerfile .
 	docker stack deploy -c $(COMPOSE_FILE) $(STACK_NAME)
+
+# Force redeploy (use after rebuilding image)
+force-redeploy:
+	docker service update --force $(STACK_NAME)_paymentservice
+	docker service update --force $(STACK_NAME)_tokenservice
+	docker service update --force $(STACK_NAME)_transactionlogservice
+	docker service update --force $(STACK_NAME)_walletservice
+	docker service update --force $(STACK_NAME)_subscriptionservice
 
 help:
 	@echo "Usage:"
