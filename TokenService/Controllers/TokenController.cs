@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Shared;
 
 namespace TokenService.Controllers
 {
@@ -8,16 +9,18 @@ namespace TokenService.Controllers
     public class TokenController : ControllerBase
     {
         private readonly ILogger<TokenController> _logger;
+        private readonly InstanceMetaData _instanceMetaData;
 
-        public TokenController(ILogger<TokenController> logger)
+        public TokenController(ILogger<TokenController> logger, InstanceMetaData instanceMetaData)
         {
             _logger = logger;
+            _instanceMetaData = instanceMetaData;
         }
 
         [HttpGet("ping")]
         public IActionResult Ping()
         {
-            _logger.LogInformation("Ping received at TokenService");
+            _logger.LogInformation("Ping received by instance {instanceId}", _instanceMetaData.Id);
             return Ok("TokenService is running");
         }
 
@@ -25,7 +28,7 @@ namespace TokenService.Controllers
         [Authorize(Roles = "admin,dev")]
         public IActionResult SecurePing()
         {
-            _logger.LogInformation("Secure ping received at TokenService");
+            _logger.LogInformation("Secure ping received by instance {instanceId}", _instanceMetaData.Id);
             return Ok("TokenService is running securely");
         }
     }

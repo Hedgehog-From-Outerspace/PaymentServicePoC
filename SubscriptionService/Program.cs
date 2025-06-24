@@ -1,5 +1,6 @@
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Shared;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddHealthChecks();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+
 // Swagger configuration
 builder.Services.AddSwaggerGen(options =>
 {
@@ -40,6 +42,7 @@ builder.Services.AddSwaggerGen(options =>
 // Logging configuration
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
+builder.Services.AddSingleton<InstanceMetaData>();
 
 // Dummy JWT authentication setup
 var jwtSecret = builder.Configuration["Jwt:Secret"];
@@ -61,7 +64,7 @@ builder.Services.AddAuthentication("Bearer")
 var app = builder.Build();
 
 var logger = app.Services.GetRequiredService<ILogger<Program>>();
-logger.LogInformation("PaymentService started up");
+logger.LogInformation("SubscriptionService started up");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

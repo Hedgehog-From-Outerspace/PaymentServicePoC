@@ -1,5 +1,6 @@
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Shared;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,8 +40,10 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 // Logging configuration
+var hostname = Environment.MachineName;
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
+builder.Services.AddSingleton(new InstanceMetaData { Id = hostname });
 
 // Dummy JWT authentication setup
 var jwtSecret = builder.Configuration["Jwt:Secret"];

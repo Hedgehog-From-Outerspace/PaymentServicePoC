@@ -1,5 +1,6 @@
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Shared;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -57,6 +58,7 @@ builder.Services.AddHttpClient("WalletServiceClient", client =>
 // Logging configuration
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
+builder.Services.AddSingleton<InstanceMetaData>();
 
 // Dummy JWT authentication setup
 var jwtSecret = builder.Configuration["Jwt:Secret"];

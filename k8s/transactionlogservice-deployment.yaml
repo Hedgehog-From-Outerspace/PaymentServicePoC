@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: transactionlogservice
+  namespace: paymentsystem
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: transactionlogservice
+  template:
+    metadata:
+      labels:
+        app: transactionlogservice
+    spec:
+      containers:
+        - name: transactionlogservice
+          image: transactionlogservice:latest
+          imagePullPolicy: Never
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: Development
+            - name: APP_UID
+              value: "1000"
+          ports:
+            - containerPort: 8080

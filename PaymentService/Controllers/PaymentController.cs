@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Shared;
 
 namespace PaymentService.Controllers
 {
@@ -9,11 +10,13 @@ namespace PaymentService.Controllers
     {
         private readonly IHttpClientFactory _clientFactory;
         private readonly ILogger<PaymentController> _logger;
+        private readonly InstanceMetaData _instanceMetaData;
 
-        public PaymentController(IHttpClientFactory clientFactory, ILogger<PaymentController> logger)
+        public PaymentController(IHttpClientFactory clientFactory, ILogger<PaymentController> logger, InstanceMetaData instanceMetaData)
         {
             _clientFactory = clientFactory;
             _logger = logger;
+            _instanceMetaData = instanceMetaData;
         }
 
         [HttpGet("ping")]
@@ -23,7 +26,7 @@ namespace PaymentService.Controllers
             var tokenClient = _clientFactory.CreateClient("TokenServiceClient");
             var logClient = _clientFactory.CreateClient("TransactionLogClient");
 
-            _logger.LogInformation("Ping received at PaymentService");
+            _logger.LogInformation("Ping received by instance {InstanceId}", _instanceMetaData.Id);
             return Ok("PaymentService is running");
         }
 
@@ -31,7 +34,7 @@ namespace PaymentService.Controllers
         [Authorize(Roles = "admin,dev")]
         public IActionResult SecurePing()
         {
-            _logger.LogInformation("Secure ping received at PaymentService");
+            _logger.LogInformation("Secure ping received by instance {InstanceId}", _instanceMetaData.Id);
             return Ok("PaymentService is running securely");
         } 
 

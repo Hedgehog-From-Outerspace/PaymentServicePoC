@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Shared;
 
 namespace TransactionLogService.Controllers
 {
@@ -8,15 +9,17 @@ namespace TransactionLogService.Controllers
     public class TransactionLogController : ControllerBase
     {
         private readonly ILogger<TransactionLogController> _logger;
-        public TransactionLogController(ILogger<TransactionLogController> logger)
+        private readonly InstanceMetaData _instanceMetaData;
+        public TransactionLogController(ILogger<TransactionLogController> logger, InstanceMetaData instanceMetaData)
         {
             _logger = logger;
+            _instanceMetaData = instanceMetaData;
         }
 
         [HttpGet("ping")]
         public IActionResult Ping()
         {
-            _logger.LogInformation("Ping received at TransactionLogService");
+            _logger.LogInformation("Ping received by instance {InstanceId}", _instanceMetaData.Id);
             return Ok("TransactionLogService is running");
         }
 
@@ -24,7 +27,7 @@ namespace TransactionLogService.Controllers
         [Authorize(Roles = "admin,dev")]
         public IActionResult SecurePing()
         {
-            _logger.LogInformation("Secure ping received at TransactionLogService");
+            _logger.LogInformation("Secure ping received by instance {InstanceId}", _instanceMetaData.Id);
             return Ok("TransactionLogService is running securely");
         }
     }
