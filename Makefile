@@ -45,7 +45,7 @@ logs:
 	docker service logs $(STACK_NAME)_subscriptionservice
 
 # Kubernetes manifest directory
-MANIFEST_DIR=k8s-manifests
+MANIFEST_DIR=k8s
 
 # Apply all manifests in the directory
 k8s-apply:
