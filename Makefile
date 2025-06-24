@@ -7,6 +7,7 @@ rebuild:
 	docker build -t tokenservice:latest -f TokenService/Dockerfile .
 	docker build -t transactionlogservice:latest -f TransactionLogService/Dockerfile .
 	docker build -t walletservice:latest -f WalletService/Dockerfile .
+	docker build -t subscriptionservice:latest -f SubscriptionService/Dockerfile .
 
 # Rebuild and deploy
 update: rebuild deploy
@@ -21,6 +22,7 @@ force-redeploy:
 	docker service update --force $(STACK_NAME)_tokenservice
 	docker service update --force $(STACK_NAME)_transactionlogservice
 	docker service update --force $(STACK_NAME)_walletservice
+	docker service update --force $(STACK_NAME)_subscriptionservice
 
 # Remove the stack
 remove:
@@ -63,12 +65,14 @@ k8s-rebuild:
 	docker build -t tokenservice:latest -f TokenService/Dockerfile .
 	docker build -t transactionlogservice:latest -f TransactionLogService/Dockerfile .
 	docker build -t walletservice:latest -f WalletService/Dockerfile .
+	docker build -t subscriptionservice:latest -f SubscriptionService/Dockerfile .
 
 k8s-restart:
 	kubectl rollout restart deployment paymentservice -n paymentsystem
 	kubectl rollout restart deployment tokenservice -n paymentsystem
 	kubectl rollout restart deployment transactionlogservice -n paymentsystem
 	kubectl rollout restart deployment walletservice -n paymentsystem
+	kubectl rollout restart deployment subscriptionservice -n paymentsystem
 
 # Help overview
 help:
