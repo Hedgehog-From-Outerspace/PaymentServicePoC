@@ -10,6 +10,7 @@ namespace WalletService.Controllers
     {
         private readonly ILogger<WalletController> _logger;
         private readonly InstanceMetaData _instanceMetaData;
+        private readonly IWalletService _walletService;
 
         public WalletController(ILogger<WalletController> logger, InstanceMetaData instanceMetaData)
         {
