@@ -60,6 +60,7 @@ k8s-status:
 	kubectl get pods -n paymentsystem
 	kubectl get svc -n paymentsystem
 
+# Rebuild Docker images
 k8s-rebuild:
 	docker build -t paymentservice:latest -f PaymentService/Dockerfile .
 	docker build -t tokenservice:latest -f TokenService/Dockerfile .
@@ -67,12 +68,19 @@ k8s-rebuild:
 	docker build -t walletservice:latest -f WalletService/Dockerfile .
 	docker build -t subscriptionservice:latest -f SubscriptionService/Dockerfile .
 
+# Restart all deployments
 k8s-restart:
 	kubectl rollout restart deployment paymentservice -n paymentsystem
 	kubectl rollout restart deployment tokenservice -n paymentsystem
 	kubectl rollout restart deployment transactionlogservice -n paymentsystem
 	kubectl rollout restart deployment walletservice -n paymentsystem
 	kubectl rollout restart deployment subscriptionservice -n paymentsystem
+
+# One-step deployment
+k8s-deploy:
+	make k8s-rebuild
+	make k8s-apply
+	make k8s-restart
 
 # Help overview
 help:
