@@ -1,13 +1,21 @@
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Shared;
+using SubscriptionService.Repositories;
+using Microsoft.EntityFrameworkCore;
+using SubscriptionService.Data;
+using SubscriptionService.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
 builder.Services.AddHealthChecks();
+
+// Register repositories
+builder.Services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
+builder.Services.AddHostedService<SubscriptionBackgroundService>();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
@@ -38,6 +46,12 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 });
+
+// Configure database
+var appDbContextConnectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+    ?? "Server=localhost;Database=MusicStreamingPlatform;Integrated Security=True;TrustServerCertificate=True;";
+builder.Services.AddDbContext<AppDbContext>(options =>
+   options.UseSqlServer(appDbContextConnectionString));
 
 // Logging configuration
 builder.Logging.ClearProviders();

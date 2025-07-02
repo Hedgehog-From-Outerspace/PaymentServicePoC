@@ -13,7 +13,7 @@ namespace Shared
         public InstanceMetaData()
         {
             Id = Environment.GetEnvironmentVariable("HOSTNAME")
-     ?? throw new InvalidOperationException("HOSTNAME not set.");
+                 ?? $"local-{Guid.NewGuid()}";
         }
 
     }

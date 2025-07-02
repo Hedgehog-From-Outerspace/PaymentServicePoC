@@ -1,13 +1,27 @@
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Shared;
+using WalletService.Repositories;
+using TokenService.Repositories;
+using PaymentService.Repositories;
+using Microsoft.EntityFrameworkCore;
+using PaymentService.Data;
+using PaymentService.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
 builder.Services.AddHealthChecks();
+
+// Register repositories
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+builder.Services.AddHttpClient<WalletServiceHttpClient>(client =>
+{
+    client.BaseAddress = new Uri("https://walletservice-api");
+});
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
@@ -39,7 +53,6 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
-
 builder.Services.AddHttpClient("TokenServiceClient", client =>
 {
     client.BaseAddress = new Uri("http://tokenservice:8080/");
@@ -54,6 +67,22 @@ builder.Services.AddHttpClient("WalletServiceClient", client =>
 {
     client.BaseAddress = new Uri("http://walletservice:8080/");
 });
+
+builder.Services.AddHttpClient("WalletService", client =>
+{
+    client.BaseAddress = new Uri("https://walletservice-api");
+});
+
+builder.Services.AddHttpClient("SubscriptionService", client =>
+{
+    client.BaseAddress = new Uri("https://subscriptionservice-api");
+});
+
+// Configure database
+var appDbContextConnectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+    ?? "Server=localhost;Database=MusicStreamingPlatform;Integrated Security=True;TrustServerCertificate=True;";
+builder.Services.AddDbContext<AppDbContext>(options =>
+   options.UseSqlServer(appDbContextConnectionString));
 
 // Logging configuration
 builder.Logging.ClearProviders();

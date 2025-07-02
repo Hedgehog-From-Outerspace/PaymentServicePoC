@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Shared;
+using SubscriptionService.Models;
 
-namespace WalletService.Data
+namespace SubscriptionService.Data
 {
     public class AppDbContext : DbContext
     {
@@ -9,16 +9,16 @@ namespace WalletService.Data
         {
         }
 
-        public DbSet<Wallet> Wallets { get; set; }
+        public DbSet<Subscription> Subscriptions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Wallet>()
-                .HasKey(w => w.Id);
-            modelBuilder.Entity<Wallet>()
-                .HasOne(w => w.User)
+            modelBuilder.Entity<Subscription>()
+                .HasKey(s => s.Id);
+            modelBuilder.Entity<Subscription>()
+                .HasOne(s => s.User)
                 .WithOne()
-                .HasForeignKey<Wallet>(w => w.UserId)
+                .HasForeignKey<Subscription>(s => s.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

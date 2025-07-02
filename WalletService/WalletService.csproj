@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Shared\Shared.csproj" />
+    <ProjectReference Include="..\TokenService\TokenService.csproj" />
   </ItemGroup>
 
 </Project>
