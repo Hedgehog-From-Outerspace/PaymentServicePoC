@@ -1,8 +1,10 @@
-﻿CREATE TABLE [dbo].[Songs] (
-    [Id]            UNIQUEIDENTIFIER NOT NULL,
-    [Title]         NVARCHAR (MAX)   NOT NULL,
-    [Artist]        NVARCHAR (MAX)   NOT NULL,
-    [PriceInTokens] DECIMAL (18, 2)  NOT NULL,
-    CONSTRAINT [PK_Songs] PRIMARY KEY CLUSTERED ([Id] ASC)
-);
-
+﻿CREATE TABLE [dbo].[Songs](
+	[Id] [uniqueidentifier] NOT NULL,
+	[Title] [nvarchar](max) NOT NULL,
+	[Artist] [nvarchar](max) NOT NULL,
+	[PriceInTokens] [decimal](18, 2) NOT NULL,
+ CONSTRAINT [PK_Songs] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
