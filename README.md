@@ -34,6 +34,7 @@ This solution contains several microservices that work together to simulate a pa
    - `TokenService` on [http://localhost:5001](http://localhost:5001)
    - `TransactionLogService` on [http://localhost:5002](http://localhost:5002)
    - `WalletService` on [http://localhost:5003](http://localhost:5003)
+   - `SubscriptionService` on [http://localhost:5004](http://localhost:5004)
   
 5. Open Swagger UI
    You can now access the Swagger UI for each service:
@@ -41,6 +42,7 @@ This solution contains several microservices that work together to simulate a pa
    - [TokenService Swagger](http://localhost:50001/swagger)
    - [TransactionLogService Swagger](http://localhost:5002/swagger)
    - [WalletService Swagger](http://localhost:5003/swagger)
+   - [SubscriptionService Swagger](http://localhost:5004/swagger)
   
 ## Documentation
 See the [wiki](https://github.com/Hedgehog-From-Outerspace/PaymentServicePoC/wiki) for:
